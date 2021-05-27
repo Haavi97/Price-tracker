@@ -1,6 +1,7 @@
 import requests
 import smtplib
 from bs4 import BeautifulSoup
+from time import sleep
 
 from personal_data import sender, receiver, pswd
 
@@ -41,6 +42,16 @@ def send_email(subject, body, email_to=receiver):
     server.quit()
 
 
+def check_every(func, interval, *args):
+    MAX = 10**10
+    current = 0
+    while current < MAX:
+        func(*args)
+        sleep(interval)
+        current += 1
+
+
+
 if __name__ == '__main__':
 
     URL = 'https://www.amazon.es/AZDelivery-Canales-optoacoplador-Low-Level-Trigger-Arduino/dp/B07N2Z1DWG/ref=sr_1_1?__mk_es_ES=ÅMÅŽÕÑ&dchild=1&keywords=relay%2Bboard&qid=1612681652&sr=8-1&th=1'
@@ -53,4 +64,4 @@ if __name__ == '__main__':
         'The amazon product you are tracking costs {}€ now' +\
         'Check it out here: {}').format(price, URL)
 
-    send_email(subject, body)
+    check_every(send_email, 60, subject, body)
