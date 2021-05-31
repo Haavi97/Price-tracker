@@ -5,11 +5,11 @@ from time import sleep
 
 from personal_data import sender, receiver, pswd
 
-
-def amazon_product(url):
-    headers = {
+headers = {
         "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36 OPR/76.0.4017.123'}
 
+
+def amazon_product(url):
     page = requests.get(URL, headers=headers)
 
     soup = BeautifulSoup(page.content, 'html.parser')
