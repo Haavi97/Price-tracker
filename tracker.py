@@ -33,9 +33,9 @@ def send_email(subject, body, email_to=receiver):
     msg = 'Subject:{}\n\n{}'.format(subject, body)
     msg = msg.encode('ascii', 'ignore')
 
-    print('Sending from:\t{} \nto:\t\t{}\n\n'.format(sender, receiver))
+    print('Sending from:\t{} \nto:\t\t{}\n\n'.format(sender, email_to))
 
-    server.sendmail(sender, receiver, msg)
+    server.sendmail(sender, email_to, msg)
 
     print('Message sent:\n\n' + str(msg.decode('ascii'))+'\n\n')
 
