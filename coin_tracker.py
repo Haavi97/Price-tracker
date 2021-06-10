@@ -33,19 +33,29 @@ def create_folder(folder_name):
         #print('Folder already existed')
         pass
 
+
 def add_entry(path, entry):
     with open(path, 'a+') as f:
         f.write(entry + '\n')
 
+
 def register_bitcoin_day():
-    # TODO! Check if already registered
     path = 'data' + os.sep + 'bitcoinprices.tsv'
     create_folder('data')
-    price = coin_tracker(bitcoin_URL)
-    print('Bitcoin price in euros: {:,}'.format(
-        float(price.replace(',', '.'))).replace(',', ' '))
-    entry = str(date.today()) + '\t' + price
-    add_entry(path, entry)
+    if not already_registered_bitcoin(path):
+        price = coin_tracker(bitcoin_URL)
+        print('Bitcoin price in euros: {:,}'.format(
+            float(price.replace(',', '.'))).replace(',', ' '))
+        entry = str(date.today()) + '\t' + price
+        add_entry(path, entry)
+
+
+def already_registered_bitcoin(p):
+    with open(p, 'r') as f:
+        for line in f.readlines():
+            if line.split('\t')[0] == str(date.today()):
+                return True
+    return False
 
 
 if __name__ == '__main__':
