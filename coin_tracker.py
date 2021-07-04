@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from datetime import date
 
 from tracker import send_email, headers
+from number import parseNumber
 
 bitcoin_URL = 'https://www.google.com/search?client=opera&q=bitcoin+price&sourceid=opera&ie=UTF-8&oe=UTF-8'
 
@@ -45,7 +46,7 @@ def register_bitcoin_day():
     if not already_registered_bitcoin(path):
         price = coin_tracker(bitcoin_URL)
         print('Bitcoin price in euros: {:,}'.format(
-            float(price.replace(',', '.'))).replace(',', ' '))
+            parseNumber(price)))
         entry = str(date.today()) + '\t' + price
         add_entry(path, entry)
 
